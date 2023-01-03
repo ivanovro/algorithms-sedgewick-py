@@ -23,7 +23,7 @@ class ResizingArrayStack:
 
     def pop(self):
         if self.n == 0:
-            return 
+            return
         self.n -= 1
         item = self.a[self.n]
         self.a[self.n] = None
@@ -32,12 +32,12 @@ class ResizingArrayStack:
         return item
 
 
-if __name__ == "__main__":
+def test_answer():
     ras = ResizingArrayStack()
     ras.push(1)
     ras.push(2)
     ras.push(3)
-    print(ras.pop())
-    print(ras.pop())
-    print(ras.pop())
-    print(ras.pop())
+    assert ras.pop() is 3
+    assert ras.pop() is 2
+    assert ras.pop() is 1
+    assert ras.pop() is None
