@@ -1,17 +1,15 @@
+from adt.Node import Node
+
+
 class Queue:
     def __init__(self):
         self.first = None
         self.last = None
         self.n = 0
 
-    class Node:
-        def __init__(self, item: object):
-            self.item = item
-            self.next = None
-
     def enqueue(self, item: object):
         old_last = self.last
-        self.last = self.Node(item)
+        self.last = Node(item)
         if self.is_empty():
             self.first = self.last
         else:

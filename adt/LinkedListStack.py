@@ -1,16 +1,14 @@
-class Stack:
-    class Node:
-        def __init__(self, item: object):
-            self.next = None
-            self.item = item
+from adt.Node import Node
 
+
+class Stack:
     def __init__(self):
         self.first = None
         self.n = 0
 
     def push(self, item: object):
         old_first = self.first
-        self.first = self.Node(item)
+        self.first = Node(item)
         self.first.next = old_first
         self.n += 1
 
