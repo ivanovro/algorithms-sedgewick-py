@@ -13,3 +13,4 @@ class SelectionSort(sorting.sort.Sort):
 def test_sort():
     ss = SelectionSort([1, 88, 2, 9, 2, 3, 9])
     assert ss.is_sorted()
+    assert ss.a == [1, 2, 2, 3, 9, 9, 88]
