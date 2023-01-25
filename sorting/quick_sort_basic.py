@@ -6,9 +6,6 @@ class QuickSortBasic(sorting.sort.Sort):
         super().__init__(a)
         self._sort(0, len(a) - 1)
 
-    def recursion_counter(self) -> int:
-        return self.cnt
-
     def _sort(self, lo: int, hi: int):
         if hi <= lo:
             return
