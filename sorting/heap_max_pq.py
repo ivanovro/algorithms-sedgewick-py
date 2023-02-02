@@ -19,9 +19,6 @@ class HeapMaxPQ:
         self.sink(1)
         return max_el
 
-    def exchange(self, i: int, j: int):
-        self.pq[i], self.pq[j] = self.pq[j], self.pq[i]
-
     def swim(self, i: int):
         k = int(i / 2)
         while k > 0 and self.pq[k] < self.pq[i]:
@@ -38,6 +35,9 @@ class HeapMaxPQ:
                 break
             self.exchange(i, j)
             i = j
+
+    def exchange(self, i: int, j: int):
+        self.pq[i], self.pq[j] = self.pq[j], self.pq[i]
 
 
 def test_pq():
