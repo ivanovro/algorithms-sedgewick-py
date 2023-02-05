@@ -2,6 +2,10 @@ import sorting.sort
 
 
 class DutchFlagPartitioning(sorting.sort.Sort):
+    """
+    Given an array with three "colors", sort it in linear time by introducing partitions.
+    Moving red and white pointers forward, blue backwards, eliminates the unclassified zone.
+    """
     def __init__(self, a: list):
         super(DutchFlagPartitioning, self).__init__(a)
         red, white, blue = 0, 0, len(a) - 1
