@@ -14,55 +14,63 @@ class BinarySearchTree:
         self.root = root
 
     def size(self):
-        return self.size_of_node(self.root)
+        return self.__size(self.root)
 
     @staticmethod
-    def size_of_node(node: Node):
-        return 0 if node is None else node.size
+    def __size(x: Node):
+        return 0 if x is None else x.size
 
     def get(self, key: object) -> object:
-        return self.get_value(self.root, key)
+        return self.__get(self.root, key)
 
-    def get_value(self, node: Node, key: object) -> object:
-        if node is None:
+    def __get(self, x: Node, key: object) -> object:
+        if x is None:
             return None
-        if node.key > key:
-            return self.get_value(node.left, key)
-        elif node.key < key:
-            return self.get_value(node.right, key)
+        if x.key > key:
+            return self.__get(x.left, key)
+        elif x.key < key:
+            return self.__get(x.right, key)
         else:
-            return node
+            return x
 
     def put(self, key: object, val: object):
-        self.root = self.put_value(self.root, key, val)
+        self.root = self.__put(self.root, key, val)
 
-    def put_value(self, node: Node, key: object, val: object):
-        if node is None:
+    def __put(self, x: Node, key: object, val: object):
+        if x is None:
             return self.Node(key, val)
-        elif node.key > key:
-            node.left = self.put_value(node.left, key, val)
-        elif node.key < key:
-            node.right = self.put_value(node.right, key, val)
+        elif x.key > key:
+            x.left = self.__put(x.left, key, val)
+        elif x.key < key:
+            x.right = self.__put(x.right, key, val)
         else:
-            node.val = val
-        node.size = self.size_of_node(node.left) + self.size_of_node(node.right) + 1
-        return node
+            x.val = val
+        x.size = self.__size(x.left) + self.__size(x.right) + 1
+        return x
 
     def floor(self, key: object) -> object:
-        node = self.__find_floor(self.root, key)
+        node = self.__floor(self.root, key)
         if node is None:
             raise Exception("key not found", key)
         return node.key
 
-    def __find_floor(self, node: Node, key: object) -> Optional[Node]:
-        if node is None:
+    def __floor(self, x: Node, key: object) -> Optional[Node]:
+        if x is None:
             return None
-        if node.key == key:
-            return node
-        if node.key > key:
-            return self.__find_floor(node.left, key)
-        x = self.__find_floor(node.right, key)
-        return x if x is not None else node
+        if x.key == key:
+            return x
+        if x.key > key:
+            return self.__floor(x.left, key)
+        t = self.__floor(x.right, key)
+        return t if t is not None else x
+
+    def min(self):
+        if self.root is None:
+            raise Exception("BST is empty")
+        return self.__min(self.root).key
+
+    def __min(self, x: Node) -> Node:
+        return x if x.left is None else self.__min(x.left)
 
 
 def test_op():
@@ -83,3 +91,5 @@ def test_op():
     assert bst.floor("d") == "b"
     assert bst.floor("z") == "y"
     assert bst.floor("x") == "h"
+
+    assert bst.min() is "b"
