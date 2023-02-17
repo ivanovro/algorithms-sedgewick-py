@@ -120,6 +120,42 @@ class BinarySearchTree:
             # the key is equal to the current node's key, so the rank is the size of the left subtree
             return self.__size(node.left)
 
+    def delete_min(self):
+        if self.size() is 0:
+            raise Exception("Tree is empty.")
+        self.__del_min(self.root)
+
+    def __del_min(self, x: Node) -> Optional[Node]:
+        if x is None:
+            return None
+        if x.left is None:
+            return x.right
+        x.left = self.__del_min(x.left)
+        x.size = self.__size(x.left) + self.__size(x.right) + 1
+        return x
+
+    def delete(self, key: object):
+        self.root = self.__delete(self.root, key)
+
+    def __delete(self, x: Node, key: object) -> Optional[Node]:
+        if key is None:
+            return None
+        if key < x.key:
+            x.left = self.__delete(x.left, key)
+        elif key > x.key:
+            x.right = self.__delete(x.right, key)
+        else:
+            if x.right is None:
+                return x.left
+            if x.left is None:
+                return x.right
+            t = x
+            x = self.__min(t.right)
+            x.right = self.__del_min(x.right)
+            x.left = t.left
+        x.size = self.__size(x.left) + self.__size(x.right) + 1
+        return x
+
 
 def test_base_operations():
     bst = init_bst()
@@ -152,6 +188,22 @@ def test_rank():
     assert bst.rank("b") == 0
     assert bst.rank("h") == 2
     assert bst.rank("y") == 3
+
+
+def test_del_min():
+    bst = init_bst()
+    assert bst.min() is "b"
+    bst.delete_min()
+    assert bst.min() is "e"
+
+
+def test_delete():
+    bst = init_bst()
+    assert bst.min() is "b"
+    bst.delete("b")
+    assert bst.min() is "e"
+    bst.delete("h")
+    assert bst.root.key is "y"
 
 
 def init_bst():
